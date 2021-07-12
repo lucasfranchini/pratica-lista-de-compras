@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -8,10 +9,14 @@ export default function InsertForm({ onAddItem }) {
     e.preventDefault();
 
     const newItem = { text };
-    // Save item to server
-
+    const result = axios.post('http://localhost:4000/list',newItem);
     setText("");
-    onAddItem();
+    result.then(()=>{
+      onAddItem();
+    })  
+    result.catch(()=>{
+      alert('houve algum erro ao adicionar novos item na lista')
+    })
   }
 
   return (
